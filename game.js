@@ -1,4 +1,4 @@
-        // o que acontece aqui?
+        // criando uma lista com as dimensões da tela
         const TamTela = [700, 850]
 
         // o que essa parte faz?
@@ -23,10 +23,9 @@
             }
         };
 
-        // o que acontece aqui?
-        const game = new Phaser.Game(config);
+        const game = new Phaser.Game(config); // criando uma varíavel 'game' e guardando nela um 'novo jogo phaser', que utilizará as configurações definidas em config
 
-        //criando a variável alien
+        // declaração de variáveis
         var alien;
         var teclado;
         var fogo;
@@ -39,19 +38,19 @@
         
 
 
-        function preload() {
+        function preload() { // carregar os recursos do jogo
             this.load.image('background', 'assets/bg.png'); //carregando o fundo
             this.load.image('player', 'assets/alienigena.png') //carregando a imagem do alien
-            this.load.image('turbo_nave', 'assets/turbo.png')
-            this.load.image('plataforma_tijolo', 'assets/tijolos.png')
-            this.load.image('plataforma_tijolo2', 'assets/tijolos2.png')
-            this.load.image('plataforma_tijolo3', 'assets/tijolos3.png')
-            this.load.image('moeda', 'assets/moeda.png')
-            this.load.image('coracao', 'assets/coracao.png')
+            this.load.image('turbo_nave', 'assets/turbo.png') // carregando o fogo da nave
+            this.load.image('plataforma_tijolo', 'assets/tijolos.png') // carregando o primeiro tijolo
+            this.load.image('plataforma_tijolo2', 'assets/tijolos2.png') // carregando o segundo tijolo
+            this.load.image('plataforma_tijolo3', 'assets/tijolos3.png') // carregando o terceiro tijolo
+            this.load.image('moeda', 'assets/moeda.png') // carregando a moeda
+            this.load.image('coracao', 'assets/coracao.png') // carregando o coração
         }
 
         function create() {
-            // o que acontece aqui?
+            // adiciona a tela inicial, definindo seu tamanho
             this.add.image(TamTela[0]/2, TamTela[1]/2, 'background');
 
             //Adicionando o "foguinho" do modo turbo
@@ -64,7 +63,7 @@
 
             teclado = this.input.keyboard.createCursorKeys();
 
-            //Adiciona a plataforma
+            //Adiciona as plataformas
             plataforma = this.physics.add.staticImage(TamTela[0]/4, TamTela[1]/3, 'plataforma_tijolo');
             this.physics.add.collider(alien, plataforma);
 
@@ -91,26 +90,26 @@
             this.physics.add.collider(coracao, plataforma3);
 
             // adicionando placar 
-            placar = this.add.text(50, 50, 'Moedas:' + pontuacao, {fontSize:'45px', fill:'#495613'});
+            placar = this.add.text(50, 50, 'Pontos:' + pontuacao, {fontSize:'45px', fill:'#495613'});
 
             // adicionando placar 
-            placar = this.add.text(50, 50, 'Moedas:' + pontuacao, {fontSize:'45px', fill:'#495613'});
+            placar = this.add.text(50, 50, 'Pontos:' + pontuacao, {fontSize:'45px', fill:'#495613'});
 
-            // quando o Alien enconstar na moeda...
+            // Ações a serem executadas quando o alien encostar na moeda
             this.physics.add.overlap(alien, moeda, function (){
 
                 moeda.setVisible(false); // moeda fica 'invisível
 
-                var posicaoMoeda_Y = Phaser.Math.RND.between(50, 650); //sorteia numero
+                var posicaoMoeda_Y = Phaser.Math.RND.between(50, 650); //sorteia um numero
                 moeda.setPosition(posicaoMoeda_Y, 100); //ajusta a posição da moeda
 
                 pontuacao += 1; //soma pontuação
-                placar.setText('Moedas: ' + pontuacao); //atualiza texto do placar
+                placar.setText('Pontos: ' + pontuacao); //atualiza texto do placar
 
                 moeda.setVisible(true); //ativa a visão da "nova moeda"
             });
 
-            // quando o Alien enconstar no coração...
+            // Ações a serem executadas quando o alien encostar no coração
             this.physics.add.overlap(alien, coracao, function (){
 
                 coracao.setVisible(false); // coração fica 'invisível
@@ -119,7 +118,7 @@
                 coracao.setPosition(posicaoCoracao_Y, 100); //ajusta a posição do coração
 
                 pontuacao += 2; //soma pontuação
-                placar.setText('Moedas: ' + pontuacao); //atualiza texto do placar
+                placar.setText('Pontos: ' + pontuacao); //atualiza texto do placar
 
                 coracao.setVisible(true); //ativa a visão do "novo coração"
             });
